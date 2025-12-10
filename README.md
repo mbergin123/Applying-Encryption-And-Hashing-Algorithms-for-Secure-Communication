@@ -1,4 +1,4 @@
-# Applying-Encryption-And-Hashing-Algorithms-for-Secure-Communication
+# Applying Encryption & Hashing Algorithms for Secure Communication
 This lab demonstrates how hashing and GPG encryption protect data integrity and confidentiality. I generated MD5/SHA-1 hashes, detected file modifications, created GPG key pairs, exchanged public keys, and securely encrypted and decrypted messages between users.
 ---
 
@@ -15,7 +15,7 @@ By completing this lab, I was able to:
 ---
 
 ## **Network Topology**
-**Filename:** `Top_Encrypt.png`
+![Network Topology](Top_Encrypt.png)
 
 This lab was performed on:
 
@@ -45,41 +45,41 @@ Below is the complete step-by-step documentation of everything I performed durin
 
 ### **Created the initial file**
 Typed text in gedit and saved as `Example.txt`.  
-**Filename:** `getit_saved.png`
+![SavedFile](getit_saved.png)
 
 ### **Viewed MD5 documentation**
 ```
 md5sum --help
 ```
-**Filename:** `md5sum_help.png`
+![md5sum_help](md5sum_help.png)
 
 ### **Navigated to Documents & verified file**
 Used `ls -l` and `cat Example.txt`.  
-**Filename:** `cd_example.png`
+![Example](cd_example.png)
 
 ### **Generated MD5 hash**
 ```
 md5sum Example.txt
 ```
-**Filename:** `md5sum_example.png`
+![md5sum_encryption](md5sum_example.png)
 
 ### **Stored the MD5 hash**
 ```
 md5sum Example.txt > Example.txt.md5
 ```
-**Filename:** `example_stored.png`
+![md5sum](example_stored.png)
 
 ### **Viewed stored hash**
 ```
 cat Example.txt.md5
 ```
-**Filename:** `cat_md5sum.png`
+![md5sum](cat_md5sum.png)
 
 ### **Verified MD5 integrity**
 ```
 md5sum -c Example.txt.md5
 ```
-**Filename:** `example_ok.png`
+![md5sum_example](example_ok.png)
 
 ---
 
@@ -89,19 +89,19 @@ md5sum -c Example.txt.md5
 ```
 sha1sum --help
 ```
-**Filename:** `sha1_help.png`
+![sha1sum](sha1_help.png)
 
 ### **Generated SHA-1 hash**
 ```
 sha1sum Example.txt
 ```
-**Filename:** `sha1_example.png`
+![sha2sum](sha1_example.png)
 
 ### **Stored SHA-1 hash**
 ```
 sha1sum Example.txt > Example.txt.sha1
 ```
-**Filename:** `sha1_stored.png`
+![sha1sum](sha1_stored.png)
 
 ### **Viewed stored SHA-1**
 ```
@@ -112,7 +112,7 @@ cat Example.txt.sha1
 ```
 sha1sum -c Example.txt.sha1
 ```
-**Filename:** `cat_sha1.png`
+![sha1](cat_sha1.png)
 
 ---
 
@@ -122,15 +122,15 @@ sha1sum -c Example.txt.sha1
 ```
 echo marilyn >> Example.txt
 ```
-**Filename:** `echo_example.png`
+![echo](echo_example.png)
 
 ### **Generated NEW MD5 hash**
 New hash differed from original.  
-**Filename:** `mod_md5sum.png`
+![mod](mod_md5sum.png)
 
 ### **Generated NEW SHA-1 hash**
 New SHA-1 also differed.  
-**Filename:** `mod_sha1.png`
+![mod](mod_sha1.png)
 
 This demonstrated that **any change to a file produces a completely different hash**, proving hashing's usefulness in integrity verification.
 
@@ -144,20 +144,20 @@ Used:
 gpg --gen-key
 ```
 Chose RSA 1024-bit, no expiration.  
-**Filename:** `gen_key.png`
+![gen_key](gen_key.png)
 
 ### **Ran entropy loop**
 Opened a second terminal:
 ```
 ./entropy_loop.sh
 ```
-**Filename:** `keep_machine_busy.png`
+![entropy_loop](keep_machine_busy.png)
 
 ### **Exported Student public key**
 ```
 gpg --export -a > student.pub
 ```
-**Filenames:** `pgp_export.png`, `studentPub`
+![export](studentPub.png)
 
 ---
 
@@ -168,13 +168,14 @@ gpg --export -a > student.pub
 su instructor
 gpg --gen-key
 ```
-**Filename:** `Instructor_key.png`
+![Instructor_key](instructor_key.png)
 
 ### **Exported Instructor public key**
 ```
 gpg --export -a > instructor.pub
 ```
-**Filenames:** `instructor_stored.png`, `insturctorPub.png`
+![Instructor_key](instructor_stored.png)
+![Instructor_kay](insturctorPub.png)
 
 ---
 
@@ -184,20 +185,20 @@ gpg --export -a > instructor.pub
 ```
 sudo cp /home/Instructor/instructor.pub /home/student/Documents/
 ```
-**Filename:** `instructor_copy.png`
+![Instructor_key](instructor_copy.png)
 
 ### **Listed Student keys**
 Confirmed only Student’s key was present.  
-**Filename:** `list_publickeys.png`
+![Public_keys](list_publickeys.png)
 
 ### **Imported Instructor public key**
 ```
 gpg --import instructor.pub
 ```
-**Filename:** `instructor_import.png`
+![Import_Insturctor](instructor_import.png)
 
 ### **Verified both keys now exist**
-**Filename:** `both_keys.png`
+![both_key](both_keys.png)
 
 ---
 
@@ -207,25 +208,25 @@ gpg --import instructor.pub
 ```
 echo "this is a clear-text message from marilyn" > cleartext.txt
 ```
-**Filename:** `cleartextmessage.png`
+![message](cleartxtmessage.png)
 
 ### **Encrypted using Instructor key**
 ```
 gpg -e cleartext.txt
 ```
 Chose recipient: **Instructor**  
-**Filename:** `encrypt_cleartext.png`
+![encrypt](encrypt_cleartext.png)
 
 ### **Verified encrypted file exists**
 `cleartext.txt.gpg` is now present.  
-**Filename:** `cleargpg_listed.png`
+![Clear_Message](cleargpg_listed.png)
 
 ### **Viewed encrypted contents (ciphertext)**
 ```
 cat cleartext.txt.gpg
 ```
 Unreadable output confirmed encryption.  
-**Filename:** `encrypted_proof.png`
+![Encrypted_Proof](encrypted_proof.png)
 
 ---
 
@@ -236,7 +237,7 @@ Unreadable output confirmed encryption.
 sudo cp cleartext.txt.gpg /home/Instructor/
 sudo chown instructor:instructor cleartext.txt.gpg
 ```
-**Filename:** `sudo_instructor.png`
+![sudo_instructor](sudo_instructor.png)
 
 ### **Decrypted message using Instructor’s private key**
 ```
@@ -245,7 +246,7 @@ gpg -d cleartext.txt.gpg
 ```
 The decrypted output revealed:  
 **“this is a clear-text message from marilyn”**  
-**Filename:** `decrypt_cleartext.png`
+![Decryption](decrypt_cleartext.png)
 
 ---
 
